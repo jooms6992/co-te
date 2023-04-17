@@ -5,6 +5,33 @@
 
 from collections import deque
 
+def numIslands(grid):
+    number_of_islands = 0
+    row = len(grid)
+    col = len(grid[0])
+    visited = set()
+
+    directions = [(0,-1),(0,1),(-1,0),(1,0)]
+
+    def dfs(x,y):
+        visited.add((x,y))
+        for dx, dy in directions:
+            next_x = x + dx
+            next_y = y + dy
+            if next_x >= 0 and next_x < row and next_y >= 0 and next_y < col:
+                    if grid[next_x][next_y] == '0':
+                        continue
+                    if (next_x, next_y) in visited:
+                        continue
+                    dfs(next_x, next_y)
+
+    for i in range(row):
+        for j in range(col):
+            if grid[i][j] == '1' and (i,j) not in visited:
+                dfs(i,j)
+                number_of_islands += 1
+    return number_of_islands
+
 grid = [
   ["1","1","0","0","0"],
   ["1","1","0","0","0"],
@@ -12,31 +39,4 @@ grid = [
   ["0","0","0","1","1"]
 ]
 
-def numIslands(grid):
-    number_of_islands = 0
-    row = len(grid)
-    col = len(grid[0])
-    visited = [[False]*col for _ in range(row)]
-
-    for i in range(row):
-        for j in range(col):
-            if grid[i][j] == '1' and not visited[i][j]:
-                # dfs()
-                number_of_islands += 1
-    return number_of_islands
-
 print(numIslands(grid))
-
-
-def dfs_search(graph, start, end):
-    visited = set()
-    stack = [(start, [start])]
-    while stack:
-        (vertex, path) = stack.pop()
-        if vertex not in visited:
-            if vertex == end:
-                return path
-            visited.add(vertex)
-            for neighbor in graph[vertex]:
-                stack.append((neighbor, path + [neighbor]))
-    return visited

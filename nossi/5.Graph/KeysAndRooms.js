@@ -1,4 +1,4 @@
-'use strict';
+//  https://leetcode.com/problems/keys-and-rooms/
 
 function canVisitAllRooms(rooms) {
   const visited = new Set();
@@ -20,14 +20,14 @@ function canVisitAllRooms(rooms) {
       const cur_v = queue.shift();
       for (let next_v of rooms[cur_v]) {
         if (!visited.has(next_v)) {
-          visited.add(next_v);
           queue.push(next_v);
+          visited.add(next_v);
         }
       }
     }
   }
 
-  // dfs(0);
+  //   dfs(0);
   bfs(0);
 
   console.log(visited);
@@ -39,6 +39,6 @@ function canVisitAllRooms(rooms) {
   }
 }
 
-const rooms = [[1, 3], [2, 4], [0], [4], [], [3, 4]];
-// const rooms = [[1], [2], [3], []];
+// rooms = [[1, 3], [2, 4], [0], [4], [], [3, 4]];
+rooms = [[1], [2], [3], []];
 console.log(canVisitAllRooms(rooms));

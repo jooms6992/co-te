@@ -9,8 +9,8 @@ graph = {
     'E': ['A']
 }
 
-# bfs의 특징 FIFO 그래서 queue를 쓰는거임
-# start_v와 가까운지점부터 탐색한다 (너비우선탐색Breadth-first search)
+# bfs의 특징 가까운지점부터 탐색한다 (너비우선탐색Breadth-first search)
+# FIFO 그래서 queue를 쓰는거임
 def bfs(graph, start_v):
     visited = [start_v]
     queue = deque(start_v)
