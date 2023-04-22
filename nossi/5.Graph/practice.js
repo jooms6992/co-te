@@ -1,44 +1,51 @@
 'use strict';
 
-function canVisitAllRooms(rooms) {
-  const visited = new Set();
+function shortPath(grid) {
+  let shortestPathLength = -1;
+  const row = grid.length;
+  const col = grid[0].length;
+  if (grid[0][0] === 1 && grid[row - 1][col - 1] === 1) {
+    return shortestPathLength;
+  }
 
-  function dfs(v) {
-    visited.add(v);
-    for (let next_v of rooms[v]) {
-      if (!visited.has(next_v)) {
-        dfs(next_v);
-      }
+  const directions = [
+    [0, 1],
+    [0, -1],
+    [1, 0],
+    [-1, 0],
+    [1, 1],
+    [1, -1],
+    [-1, 1],
+    [-1, -1],
+  ];
+
+  const visited = JSON.parse(JSON.stringify(grid));
+  const queue = [];
+  visited[0][0] = true;
+  queue.push([0, 0, 1]);
+  while (queue.length > 0) {
+    const [cur_r, cur_c, cur_len] = queue.shift();
+    if (cur_r === row - 1 && cur_c === col - 1) {
+      shortestPathLength = cur_len;
+      break;
+    }
+    for (let [dr, dc] of directions) {
+      const [next_r, next_c] = [cur_r + dr, cur_c + dc];
+      if (!(next_r >= 0 && next_r < row && next_c >= 0 && next_c < col))
+        continue;
+      if (grid[next_r][next_c] === 1) continue;
+      if (visited[next_r][next_c] === true) continue;
+      visited[next_r][next_c] = true;
+      queue.push([next_r, next_c, cur_len + 1]);
     }
   }
-
-  function bfs(v) {
-    visited.add(v);
-    const queue = [];
-    queue.push(v);
-    while (queue.length > 0) {
-      const cur_v = queue.shift();
-      for (let next_v of rooms[cur_v]) {
-        if (!visited.has(next_v)) {
-          visited.add(next_v);
-          queue.push(next_v);
-        }
-      }
-    }
-  }
-
-  // dfs(0);
-  bfs(0);
-
-  console.log(visited);
-
-  if (visited.size === rooms.length) {
-    return true;
-  } else {
-    return false;
-  }
+  return shortestPathLength;
 }
 
-const rooms = [[1, 3], [2, 4], [0], [4], [], [3, 4]];
-// const rooms = [[1], [2], [3], []];
-console.log(canVisitAllRooms(rooms));
+const grid = [
+  [0, 0, 0],
+  [1, 1, 0],
+  [1, 1, 0],
+];
+
+console.log(shortPath(grid));

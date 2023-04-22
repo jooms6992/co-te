@@ -1,34 +1,37 @@
 from collections import deque
-def canVisitAllRooms(rooms):
 
+def shortPath(grid):
+    shortest_path_len = -1
+    row = len(grid)
+    col = len(grid[0])
+    if grid[0][0] == 1 or grid[row - 1][col - 1] == 1:
+        return shortest_path_len
+
+    directions = [(0,1),(0,-1),(1,0),(-1,0),(1,1),(1,-1),(-1,1),(-1,-1)]
+    
     visited = set()
+    q = deque()
+    visited.add((0,0))
+    q.append((0,0,1))
+    while q:
+        cur_r,cur_c,cur_len = q.popleft()
+        if cur_r == row - 1 and cur_c == col - 1:
+            shortest_path_len = cur_len
+            break
+        for dr,dc in directions:
+            next_r = cur_r + dr
+            next_c = cur_c + dc
+            if next_r >=0 and next_r < row and next_c >=0 and next_c < col:
+                if grid[next_r][next_c] == 0 and (next_r, next_c) not in visited:
+                    visited.add((next_r,next_c))
+                    q.append((next_r, next_c,cur_len+1))
 
-    def bfs(v):
-        visited.add(v)
-        q = deque()
-        q.append(v)
-        while q:
-            cur_v = q.popleft()
-            for next_v in rooms[cur_v]:
-                if next_v not in visited:
-                    visited.add(next_v)
-                    q.append(next_v)
+    
 
-    def dfs(v):
-        visited.add(v)
-        for next_v in rooms[v]:
-            if next_v not in visited:
-                dfs(next_v)
-
-    # bfs(0)
-    # dfs(0)
-
-    if len(visited) == len(rooms):
-        return True
-    else:
-        return False
+    return shortest_path_len
 
 
-# rooms = [[1,3],[2,4],[0],[4],[],[3,4]]
-rooms = [[1],[2],[3],[]]
-print(canVisitAllRooms(rooms))
+
+grid = [[0,0,0],[1,1,0],[1,1,0]]
+
+print(shortPath(grid))

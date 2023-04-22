@@ -17,9 +17,9 @@ print(twoSum(nums, target))
 
 # two pointer
 # 정렬은 O(nlogn)
-sorted = nums[:]
-sorted.sort()
-def twoSumm(sorted, target):
+def twoSumm(nums, target):
+    sorted = nums[:]
+    sorted.sort()
     l = 0
     r = len(sorted) - 1
     while l != r:
