@@ -1,6 +1,9 @@
 // https://leetcode.com/problems/two-sum/solutions/1606307/javascript-hash-table/?orderBy=most_votes&languageTags=javascript&topicTags=hash-table
-nums = [4, 1, 9, 7, 5, 3, 16];
-target = 14;
+// Hash
+// Key-value쌍으로 데이터를 빠르게 찾아보세요.
+
+const nums = [4, 1, 9, 7, 5, 3, 16];
+const target = 14;
 
 function twoSum(nums, target) {
   const memo = {};
@@ -10,7 +13,7 @@ function twoSum(nums, target) {
     }
     memo[nums[i]] = i;
   }
-  return False;
+  return false;
 }
 
 console.log(twoSum(nums, target));
