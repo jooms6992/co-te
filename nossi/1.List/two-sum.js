@@ -25,7 +25,7 @@ function twoSumm(nums, target) {
   let r = sorted.length - 1;
   while (l !== r) {
     if (sorted[l] + sorted[r] == target) {
-      return [nums.indexOf(sorted[l]), nums.indexOf(sorted[r], -1)];
+      return [nums.indexOf(sorted[l]), nums.lastIndexOf(sorted[r])];
     } else if (sorted[l] + sorted[r] > target) {
       r = r - 1;
     } else {

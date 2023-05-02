@@ -1,27 +1,17 @@
 'use strict';
-const nums = [9, 1, 4, 7, 3, -1, 0, 5, 8, -1, 6];
+const words = ['4', 'las', 'god', 'psala', 'sal'];
 
-function longestConsecutive(nums) {
-  if (nums.length === 0) return 0;
-  let longest = 0;
-
+function solution(words) {
   const memo = new Map();
-  for (let n of nums) {
-    memo.set(n);
-  }
-
-  for (let num of memo.keys()) {
-    if (!memo.has(num - 1)) {
-      let target = num + 1;
-      let cnt = 1;
-      while (memo.has(target)) {
-        target++;
-        cnt++;
-      }
-      longest = Math.max(longest, cnt);
+  for (let i = 1; i <= words[0]; i++) {
+    memo.set(words[i]);
+    let reversed = words[i].split('').reverse().join('');
+    if (memo.has(reversed)) {
+      let len = words[i].length;
+      let mid = words[i].split('')[Math.floor(words[i].length / 2)];
+      return [len, mid];
     }
   }
-  return longest;
 }
 
-console.log(longestConsecutive(nums));
+console.log(solution(words));
